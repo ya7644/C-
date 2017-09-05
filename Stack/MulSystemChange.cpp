@@ -1,5 +1,6 @@
 #include "Stack.h"
 #include "stdio.h"
+#include "stdlib.h"
 
 //10进制转换为其他进制的数字
 status changeSystem(SqStack &stack,int num, int n)
@@ -12,17 +13,19 @@ status changeSystem(SqStack &stack,int num, int n)
 
 	int *ptr;
 
-	if(n == 2 )
+	switch(n)
 	{
+	case 2:
 		ptr = arr[0];
-	}else if( n== 8 )
-	{
+		break;
+	case 8:
 		ptr = arr[1];
-	}else if( n==16)
-	{
-		ptr= arr[2];
-	}else {
-	    return ERROR;
+		break;	
+	case 16:
+		ptr = arr[2];
+		break;
+	default:
+		return ERROR;
 	}
 
 	initStack(stack);
@@ -38,7 +41,14 @@ status changeSystem(SqStack &stack,int num, int n)
 void main()
 {
 	SqStack stack;
-	changeSystem(stack,255, 16);
+	status state = changeSystem(stack,1234456,2) ;
+
+	if(state==-1)
+	{
+		printf("%s\n`","ERROR");
+		exit(1);
+	}
+
 	stackElem e;
 	while(getStackLen(stack) != 0)
 	{
